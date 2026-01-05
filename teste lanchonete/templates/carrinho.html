@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carrinho</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+<header class="topo">
+    <h1>🛒 Seu Carrinho</h1>
+</header>
+
+<main class="container carrinho-page">
+    <section class="cart-panel">
+        <h2>Resumo do pedido</h2>
+        <div id="listaCarrinho" class="cart-list"></div>
+
+        <div class="cart-summary">
+            <div>Total</div>
+            <div class="total-value">R$ <span id="totalCarrinho">0.00</span></div>
+        </div>
+    </section>
+
+    <aside class="payment-panel">
+        <h3>Pagamento</h3>
+
+        <div class="payment-methods">
+            <label><input type="radio" name="pagamento" value="pix" checked> Pix</label>
+            <label><input type="radio" name="pagamento" value="cartao"> Cartão</label>
+            <label><input type="radio" name="pagamento" value="dinheiro"> Dinheiro</label>
+        </div>
+
+        <div id="paymentInputs">
+            <div class="pay-row" id="pix-row">
+                <label>Chave Pix (email/CPF/tel):<br>
+                    <input type="text" id="pixKey" placeholder="ex: exemplo@pix.com">
+                </label>
+            </div>
+
+            <div class="pay-row hidden" id="card-row">
+                <label>Número do cartão:<br>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                </label>
+                <label>Nome no cartão:<br>
+                    <input type="text" id="cardName" placeholder="NOME DO TITULAR">
+                </label>
+                <label>Validade / CVV:<br>
+                    <input type="text" id="cardExp" placeholder="MM/AA" style="width:80px;">
+                    <input type="text" id="cardCvv" placeholder="CVV" style="width:70px;" maxlength="4">
+                </label>
+            </div>
+
+            <div class="pay-row hidden" id="cash-row">
+                <label>Valor pago (R$):<br>
+                    <input type="number" id="cashPaid" min="0" step="0.01" placeholder="0.00">
+                </label>
+                <p id="change-info" class="muted"></p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="customer-fields">
+            <label>Nome:<br><input type="text" id="nomeCart" placeholder="Seu nome"></label>
+            <label>Mesa:<br><input type="text" id="mesaCart" placeholder="Mesa"></label>
+        </div>
+
+        <div class="actions">
+            <button id="btn-finalizar" class="finalizar-btn">Finalizar e Pagar</button>
+            <a href="/" class="link-muted">Continuar comprando</a>
+        </div>
+
+        <div id="orderSuccess" class="success hidden">
+            <h4>Pedido finalizado ✅</h4>
+            <p id="successMsg"></p>
+            <a href="/" class="btn-ghost">Voltar ao cardápio</a>
+        </div>
+    </aside>
+</main>
+</body>
+</html>

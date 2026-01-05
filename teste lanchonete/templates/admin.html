@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Admin | Pedidos</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f0f0f;
+    color: #fff;
+    padding: 20px;
+}
+
+.pedido {
+    background: #1c1c1c;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 5px solid #00ff88;
+}
+
+.total {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+button {
+    background: #ff3b3b;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>📋 Painel de Pedidos</h1>
+
+{% if pedidos and pedidos|length > 0 %}
+    {% for p in pedidos %}
+    <div class="pedido">
+        <p><strong>Pedido #{{ p[0] }}</strong></p>
+        <p><strong>Cliente:</strong> {{ p[1] }}</p>
+        <p><strong>Mesa:</strong> {{ p[2] }}</p>
+        <p><strong>Itens:</strong> {{ p[3] }}</p>
+        <p class="total">Total: R$ {{ p[4] }}</p>
+        <p><small>🕒 {{ p[5] }}</small></p>
+
+        <button onclick="finalizar({{ p[0] }})">Finalizar</button>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>Nenhum pedido recebido.</p>
+{% endif %}
+
+<script>
+function finalizar(id) {
+    fetch(`/finalizar/${id}`)
+        .then(() => location.reload());
+}
+
+// auto refresh
+setInterval(() => {
+    if (document.visibilityState === 'visible') {
+        location.reload();
+    }
+}, 3000);
+</script>
+
+</body>
+</html>

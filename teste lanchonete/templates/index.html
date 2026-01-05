@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardápio</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+
+<body>
+
+<header class="topo">
+    <h1>🍔 Lanchonete</h1>
+    <p>Escolha seus produtos</p>
+</header>
+
+<div class="container">
+
+<!-- DADOS -->
+<div class="dados">
+    <input id="nome" placeholder="Seu nome">
+    <input id="mesa" placeholder="Mesa">
+</div>
+
+<!-- LANCHES -->
+<h2 class="categoria">🍔 Lanches</h2>
+
+{% for item in cardapio.lanches %}
+<div class="produto-card">
+    <img src="{{ url_for('static', filename='img/lanche.png') }}">
+    <div class="info">
+        <h3>{{ item.nome }}</h3>
+        <p>{{ item.descricao }}</p>
+        <span class="preco">R$ {{ item.preco }}</span>
+    </div>
+    <button class="add-btn"
+        data-nome="{{ item.nome }}"
+        data-preco="{{ item.preco }}">
+        +
+    </button>
+</div>
+{% endfor %}
+
+<!-- BEBIDAS -->
+<h2 class="categoria">🥤 Bebidas</h2>
+
+{% for item in cardapio.bebidas %}
+<div class="produto-card">
+    <img src="{{ url_for('static', filename='img/bebida.jpg') }}">
+    <div class="info">
+        <h3>{{ item.nome }}</h3>
+        <p>{{ item.descricao }}</p>
+        <span class="preco">R$ {{ item.preco }}</span>
+    </div>
+    <button class="add-btn"
+        data-nome="{{ item.nome }}"
+        data-preco="{{ item.preco }}">
+        +
+    </button>
+</div>
+{% endfor %}
+
+</div>
+
+<!-- CARRINHO FIXO (botão remodelado) -->
+<footer class="carrinho-fixo">
+    <a class="carrinho-btn" href="/carrinho">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-text">Ver Carrinho</span>
+        <span id="cart-count" class="cart-badge">0</span>
+        <span class="cart-total">R$ <b id="total">0.00</b></span>
+    </a>
+</footer>
+
+</body>
+</html>
